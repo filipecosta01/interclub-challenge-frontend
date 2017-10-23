@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import _ from 'lodash'
-import searchImage from '../../static/images/search.svg'
 import styled from 'styled-components'
 
 const StyledWrapper = styled.div`
@@ -16,7 +15,7 @@ const StyledMagnify = styled.i`
     display: inline-block;
     background-repeat: no-repeat;
     background-color: transparent;
-    background-image: url(${searchImage});
+    background-image: url('../assets/search.svg');
 `;
 
 const StyledInput = styled.input`

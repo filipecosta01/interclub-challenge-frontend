@@ -8,10 +8,12 @@
     "normalizr": "^3.2.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-loading": "^1.0.0",
     "react-redux": "^5.0.6",
     "react-scripts": "1.0.14",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
+    "sort-by": "^1.2.0",
     "styled-components": "^2.2.1"
   },
   "scripts": {

@@ -17,9 +17,12 @@ export const GET_MEMBERS_SUCCESS = 'GET_MEMBERS_SUCCESS'
 export const getMembers = () => async dispatch => {
   dispatch({ type: GET_MEMBERS })
 
+  // Set arbitraty timout so loading appears first...
   try {
     const response = await MemberAPI.listAllMembers()
-    return getMembersSuccess({ response, dispatch })
+    setTimeout(() => {
+      return getMembersSuccess({ response, dispatch })
+    }, 5000)
   } catch(error) {
     dispatch({ type: GET_MEMBERS_FAILURE, error })
   }
