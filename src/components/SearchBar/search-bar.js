@@ -3,8 +3,13 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import styled from 'styled-components'
 
+const StyledSearchWrapper = styled.div`
+    display: flex;
+`;
+
 const StyledWrapper = styled.div`
     display: flex;
+    flex-direction: column;
 `;
 
 const StyledMagnify = styled.i`
@@ -33,14 +38,41 @@ const StyledInput = styled.input`
 
 `;
 
+const StyledUnorderedList = styled.ul`
+    padding: 0;
+    margin: 0 auto;
+`
+
+const StyledOption = styled.li`
+    display: flex;
+
+    width: 300px;
+    background-color: #FFF;
+    border: 2px solid #c917a0;
+    padding: 10px 32px 10px 10px;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        opacity:0.6
+    }
+
+    cursor: pointer;
+`
+
 export default class SearchBar extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             searchValue: '',
-            onChangeText: () => {}
+            onChangeText: () => {},
+            optionSelected: ''
         }
+
+        this._handleSelectedOption = this._handleSelectedOption.bind(this)
     }
 
     componentWillMount() {
@@ -48,17 +80,46 @@ export default class SearchBar extends Component {
         this.setState({ onChangeText: _.debounce(onChangeText, 300) })
     }
 
+    _handleSelectedOption(event) {
+        event.preventDefault()
+
+        const value = event.target.value
+        const { filteredMembers, onChangeText } = this.props
+
+        const memberSelected = filteredMembers.filter(member => member['number'] === value)[0]
+        const selectedValue = [memberSelected['first_name'], memberSelected['last_name']].join(' ')
+
+        onChangeText(selectedValue)
+        this.setState({ searchValue: selectedValue, optionSelected: memberSelected })
+    }
+
     render() {
-        const { searchValue } = this.state
+        const { searchValue, optionSelected } = this.state
+        const { filteredMembers } = this.props
+        const shouldDisplayDropdown = !_.isEmpty(searchValue) && filteredMembers.length > 0 && !optionSelected
 
         return (
             <StyledWrapper>
+                <StyledSearchWrapper>
                     <StyledInput
                         type='text'
                         value={searchValue}
                         onChange={this._handleSearchValueChange}
                         placeholder='Enter Member Name or Number...' />
                     <StyledMagnify onClick={() => this.props.onChangeText(searchValue)} />
+                </StyledSearchWrapper>
+                {shouldDisplayDropdown &&
+                    <StyledUnorderedList>
+                        {filteredMembers.map(member =>
+                            <StyledOption
+                                key={member['number']}
+                                value={member['number']}
+                                onClick={this._handleSelectedOption}>
+                                    {[member['first_name'], member['last_name']].join(' ')}
+                            </StyledOption>
+                        )}
+                    </StyledUnorderedList>
+                }
             </StyledWrapper>
         )
     }
@@ -66,7 +127,7 @@ export default class SearchBar extends Component {
     _handleSearchValueChange = e => {
         const { onChangeText } = this.state
         const text = e.target.value
-        this.setState({ searchValue: text })
+        this.setState({ searchValue: text, optionSelected: '' })
 
         return onChangeText(text)
     }

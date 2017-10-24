@@ -129,7 +129,7 @@ export default class App extends Component {
                 <StyledLogoLink href='https://interclub.io' target='_blank'>
                     <img src='/assets/logo_48x48.png' />
                 </StyledLogoLink>
-                <SearchBar onChangeText={this.onChangeText} />
+                <SearchBar onChangeText={this.onChangeText} filteredMembers={filteredMembers} />
                 <StyledResults>
                     {isLoading && <ReactLoading type="spinningBubbles" color="#FFF" />}
                     {!isLoading && showEmptyResultMessage && <StyledEmptyResultMessage>No members found.</StyledEmptyResultMessage>}
