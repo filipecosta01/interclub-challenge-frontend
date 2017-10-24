@@ -77,7 +77,7 @@ export default class SearchBar extends Component {
 
     componentWillMount() {
         const { onChangeText } = this.props
-        this.setState({ onChangeText: _.debounce(onChangeText, 300) })
+        this.setState({ onChangeText: _.debounce(onChangeText, 100) })
     }
 
     _handleSelectedOption(event) {

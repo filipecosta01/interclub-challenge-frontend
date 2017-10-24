@@ -22,7 +22,7 @@ export const getMembers = () => async dispatch => {
     const response = await MemberAPI.listAllMembers()
     setTimeout(() => {
       return getMembersSuccess({ response, dispatch })
-    }, 500)
+    }, 3000)
   } catch(error) {
     dispatch({ type: GET_MEMBERS_FAILURE, error })
   }
