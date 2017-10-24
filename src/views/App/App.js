@@ -31,6 +31,7 @@ const StyledMask = styled.div`
         display: block;
         width: 100%;
         height: calc(100% - 20vh);
+        overflow-y: auto;
         position: absolute;
         top: calc(20vh + 22px);
         z-index: -1;
@@ -52,6 +53,8 @@ padding: 50px;
 flex-wrap: wrap;
 flex-direction: row;
 justify-content: center;
+max-height: 70vh;
+overflow-y: auto;
 `
 
 const StyledMemberCard = styled.div`

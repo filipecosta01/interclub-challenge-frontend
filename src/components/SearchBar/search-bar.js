@@ -40,7 +40,11 @@ const StyledInput = styled.input`
 
 const StyledUnorderedList = styled.ul`
     padding: 0;
-    margin: 0 auto;
+    z-index: 10;
+    margin: 40px 0 auto;
+    overflow-y: auto;
+    max-height: 200px;
+    position: absolute;
 `
 
 const StyledOption = styled.li`
@@ -56,7 +60,7 @@ const StyledOption = styled.li`
     }
 
     &:hover {
-        opacity:0.6
+        background-color: #d3d3d3;
     }
 
     cursor: pointer;
